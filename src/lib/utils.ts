@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDate(date: string) {
+    if (!date) return "null"
     return new Intl.DateTimeFormat("en-US", {
         hour: "numeric",
         minute: "2-digit",

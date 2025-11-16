@@ -26,7 +26,7 @@ interface AttemptData {
 
 
 export function useResults() {
-    const [data, setData] = useState<AttemptData | null>(null)
+    const [data, setData] = useState<AttemptData[] | null>(null)
     const [loading, setLoading] = useState(true)
     const [version, setVersion] = useState(0)
     const navigate = useNavigate()
@@ -34,7 +34,7 @@ export function useResults() {
     useEffect(() => {
         (async () => {
             try {
-                const res = await backend.get<AttemptData>({ root: 'game', route: '/results' })
+                const res = await backend.get<AttemptData[]>({ root: 'game', route: '/results' })
 
                 setData(res)
 
@@ -49,7 +49,7 @@ export function useResults() {
             }
             finally { setLoading(false) }
         })()
-    }, [version])
+    }, [])
 
 
     const refetch = () => setVersion(prev => prev + 1);

@@ -43,6 +43,13 @@ export function useEmail() {
                     return
                 }
 
+                // 👉 shuffle email1 and email2
+                if (Math.random() < 0.5) {
+                    const temp = res.attempt.email1;
+                    res.attempt.email1 = res.attempt.email2;
+                    res.attempt.email2 = temp;
+                }
+
                 setData(res)
 
             }

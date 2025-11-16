@@ -1,5 +1,6 @@
 
 import { LogoutButton } from '@/features/auth/logout-button'
+import Guard from './guard'
 
 export default function Header() {
     return (
@@ -14,7 +15,9 @@ export default function Header() {
 
 
             <nav className='flex items-center gap-5' >
-                <LogoutButton />
+                <Guard>
+                    <LogoutButton />
+                </Guard>
             </nav>
 
         </header>

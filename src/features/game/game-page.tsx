@@ -49,6 +49,7 @@ export default function GamePage() {
     const email1 = data.attempt.email1
     const email2 = data.attempt.email2
 
+
     const canSubmit = selection && reasoning
 
 
