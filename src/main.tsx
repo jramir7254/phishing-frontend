@@ -1,8 +1,8 @@
 // import './styles.css'
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route } from "react-router";
 
 
-import Dev from './dev';
+// import Dev from './dev';
 import Header from "./components/blocks/header";
 import AuthPage from "./features/auth/auth-page";
 import GamePage from "./features/game/game-page";

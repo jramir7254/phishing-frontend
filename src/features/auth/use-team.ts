@@ -8,6 +8,9 @@ export type DecodedToken = {
     teamName: string;
     joinCode: string;
     isAdmin: boolean;
+    joinedAt: string
+    finishedAt: string
+    correctCount: number
 };
 
 

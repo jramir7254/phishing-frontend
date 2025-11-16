@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useTeam } from '../auth/use-team'
 import Email from './email'
 import { Textarea } from '@/components/ui/textarea'
@@ -10,25 +10,25 @@ import { useEmail } from '@/hooks/use-email'
 import { tokenStore } from "../auth/use-team";
 import { useNavigate } from "react-router";
 
-interface EmailSchema {
-    id: string,
-    subject: string,
-    from: string,
-    to: string,
-    date: string,
-    html: string
-}
+// interface EmailSchema {
+//     id: string,
+//     subject: string,
+//     from: string,
+//     to: string,
+//     date: string,
+//     html: string
+// }
 
-interface AttemptData {
-    done: boolean,
-    count: number,
-    attempt: {
-        id: string,
-        teamId: string,
-        email1: EmailSchema
-        email2: EmailSchema
-    };
-}
+// interface AttemptData {
+//     done: boolean,
+//     count: number,
+//     attempt: {
+//         id: string,
+//         teamId: string,
+//         email1: EmailSchema
+//         email2: EmailSchema
+//     };
+// }
 
 
 

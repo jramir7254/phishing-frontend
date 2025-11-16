@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Separator } from '@/components/ui'
 import { backend, type ApiError, type BaseBackendResponse } from '@/lib/api'
 import { toast } from 'sonner'
@@ -18,7 +17,7 @@ export interface Team extends DecodedToken {
 
 export default function AdminPage() {
 
-    const { data, loading, refetch } = useTeams()
+    const { data, refetch } = useTeams()
 
 
     const resetDemo = async () => {
