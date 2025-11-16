@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { logger, setCorrelationId, clearCorrelationId } from "@/lib/logger";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 
 export type RootRoutes = 'game' | 'admin' | 'auth' | 'questions' | 'teams' | ''
@@ -24,7 +25,7 @@ export interface ApiError {
 export type CallParams = { root: RootRoutes, route?: string, payload?: any }
 
 export const BackendApi = axios.create({
-    baseURL: 'http://localhost:3002'
+    baseURL: BASE_URL
 })
 
 
