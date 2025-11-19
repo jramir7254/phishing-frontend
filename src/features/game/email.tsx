@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui";
 
-type EmailProps = {
+export type EmailProps = {
     id: string;
     subject: string;
     from: string;
@@ -9,7 +9,12 @@ type EmailProps = {
     html: string;
 };
 
-export default function Email({ email }: { email: EmailProps }) {
+export default function Email({ email }: { email: EmailProps | null }) {
+
+
+    if (!email) return <p>loading...</p>
+
+
     // Split sender name and address for display clarity
     const [senderName, senderEmail] = email?.from.includes("<")
         ? email.from.split("<").map(s => s.replace(">", "").trim())

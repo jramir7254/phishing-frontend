@@ -8,11 +8,8 @@ import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
 import { backend } from "@/lib/api";
 import { toast } from "sonner";
-import { useNavigate } from "react-router";
-
 import { tokenStore } from "./use-team";
-
-
+import { useAuth } from "@/providers/auth-provider";
 
 const loginSchema = z.object({
     joinCode: z.string().min(3, "Access code must be 6 characters."),
@@ -27,8 +24,7 @@ const registerSchema = z.object({
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(false);
-    const navigate = useNavigate()
-
+    const { refresh } = useAuth()
 
     const form = useForm({
         resolver: zodResolver(isLogin ? loginSchema : registerSchema),
@@ -49,7 +45,7 @@ export default function AuthForm() {
             }
             if (token) {
                 tokenStore.set(token)
-                navigate('/game')
+                await refresh()
             }
         } catch (error: any) {
             toast.error(error?.message)

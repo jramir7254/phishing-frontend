@@ -39,10 +39,8 @@ const TeamCard = ({ index, team }: { index: number, team: Leaderboard }) => {
             </div>
             <div className='p-3 inline-flex justify-between w-full'>
                 <p className='font-bold'>{teamName}</p>
-
-
                 <div>
-                    {finishedAt && <p>{correctCount}/20</p>}
+                    {finishedAt && <p>{correctCount}/40</p>}
                 </div>
             </div>
         </div>

@@ -3,30 +3,38 @@ import { Routes, Route } from "react-router";
 
 
 // import Dev from './dev';
+import AuthProvider from "./providers/auth-provider";
 import Header from "./components/blocks/header";
 import AuthPage from "./features/auth/auth-page";
 import GamePage from "./features/game/game-page";
 import AdminPage from "./features/admin/admin-page";
 import ResultsPage from "./features/game/results-page";
+import { TutorialProvider } from "./providers/tutorial-provider";
+import LobbyPage from "./features/game/lobby-page";
 import { Toaster } from "sonner";
 
 export default function App() {
 
     return (
         <>
-            <Header />
-            <main className='flex w-screen relative '>
-                <Routes>
-                    {/* Public */}
-                    {/* <Route path="/dev" element={<Dev />} /> */}
-                    <Route path="/" element={<AuthPage />} />
-                    <Route path="/game" element={<GamePage />} />
-                    <Route path="/results" element={<ResultsPage />} />
-                    <Route path="/admin" element={<AdminPage />} />
-                </Routes>
-                <Toaster richColors position='top-center' />
+            <AuthProvider>
+                <TutorialProvider>
 
-            </main>
+                    <Header />
+                    <main className='flex w-screen relative '>
+                        <Routes>
+                            {/* <Route path="/dev" element={<Dev />} /> */}
+                            <Route path="/" element={<AuthPage />} />
+                            <Route path="/instructions" element={<LobbyPage />} />
+                            <Route path="/live" element={<GamePage />} />
+                            <Route path="/results" element={<ResultsPage />} />
+                            <Route path="/admin" element={<AdminPage />} />
+                        </Routes>
+                        <Toaster richColors position='top-center' />
+                    </main>
+                </TutorialProvider>
+
+            </AuthProvider>
         </>
     );
 }

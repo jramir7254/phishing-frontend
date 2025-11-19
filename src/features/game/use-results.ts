@@ -4,40 +4,26 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { tokenStore } from "../auth/use-team";
 
-interface EmailSchema {
-    id: string,
-    subject: string,
-    from: string,
-    to: string,
-    date: string,
-    html: string
-}
 
-interface AttemptData {
-    done: boolean,
-    count: number,
-    attempt: {
-        id: string,
-        teamId: string,
-        email1: EmailSchema
-        email2: EmailSchema
-    };
+interface ResultsData {
+    attemptId: number,
+    emailId: number,
+    teamId: number,
+    isCorrect: boolean,
+    selectedOption: 'phishing' | 'legit'
 }
 
 
 export function useResults() {
-    const [data, setData] = useState<AttemptData[] | null>(null)
+    const [data, setData] = useState<ResultsData[] | null>(null)
     const [loading, setLoading] = useState(true)
-    const [version, setVersion] = useState(0)
     const navigate = useNavigate()
 
     useEffect(() => {
         (async () => {
             try {
-                const res = await backend.get<AttemptData[]>({ root: 'game', route: '/results' })
-
+                const res = await backend.get<ResultsData[]>({ root: 'game', route: '/results' })
                 setData(res)
-
             }
             catch (error: any) {
                 logger.error('Error in useResults', error)
@@ -51,10 +37,5 @@ export function useResults() {
         })()
     }, [])
 
-
-    const refetch = () => setVersion(prev => prev + 1);
-
-
-
-    return { data, loading, refetch }
+    return { data, loading }
 }

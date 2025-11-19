@@ -1,6 +1,4 @@
 // src/features/auth/components/logout-button.tsx
-import { tokenStore } from "./use-team"
-import { useNavigate } from "react-router"
 import { LogOut } from "lucide-react"
 import {
     AlertDialog,
@@ -13,15 +11,12 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
+import { useAuth } from "@/providers/auth-provider"
 
 
 export function LogoutButton() {
-    const navigate = useNavigate()
+    const { logout } = useAuth()
 
-    const logout = () => {
-        tokenStore.clear()
-        navigate('/')
-    }
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>

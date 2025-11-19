@@ -1,10 +1,14 @@
 import React from 'react'
 
-import { useTeam } from '@/features/auth/use-team'
+
+import { useAuth } from '@/providers/auth-provider'
+import { logger } from '@/lib/logger'
+
 
 export default function Guard({ children }: { children: React.ReactNode }) {
-    const team = useTeam()
+    const { team, loading } = useAuth()
 
-    if (!team) return null
-    return children
+
+    if (!team || loading) return null
+    else return children
 }

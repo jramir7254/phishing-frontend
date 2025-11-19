@@ -17,37 +17,35 @@ interface EmailSchema {
 export interface AttemptData {
     done: boolean,
     count: number,
-    attempt: {
-        id: string,
-        teamId: string,
-        email1: EmailSchema
-        email2: EmailSchema
-    };
+    attemptId: number,
+    email: EmailSchema | null,
+}
+
+const placeHolder = {
+    done: false,
+    count: 0,
+    attemptId: -1,
+    email: null
 }
 
 
 export function useEmail() {
-    const [data, setData] = useState<AttemptData | null>(null)
+    const [data, setData] = useState<AttemptData>(placeHolder)
     const [loading, setLoading] = useState(true)
-    const [version, setVersion] = useState(0)
     const navigate = useNavigate()
 
     useEffect(() => {
         (async () => {
             try {
+
+                if (data.attemptId !== -1) return
+
                 const res = await backend.get<AttemptData>({ root: 'game', route: '/attempt' })
 
                 if (res.done) {
                     logger.info(`[res.done]: ${res.done}`)
                     navigate('/results')
                     return
-                }
-
-                // 👉 shuffle email1 and email2
-                if (Math.random() < 0.5) {
-                    const temp = res.attempt.email1;
-                    res.attempt.email1 = res.attempt.email2;
-                    res.attempt.email2 = temp;
                 }
 
                 setData(res)
@@ -58,17 +56,40 @@ export function useEmail() {
 
                 if (error?.status === 401 || error?.status === 404) {
                     tokenStore.clear()
-                    navigate('/')
+                    navigate('/', { replace: true })
                 }
             }
             finally { setLoading(false) }
         })()
-    }, [version])
+    }, [])
+
+    useEffect(() => {
+        logger.debug('data', data)
+    }, [data])
 
 
-    const refetch = () => setVersion(prev => prev + 1);
+
+    const { attemptId } = data
+
+
+    const submit = async (selection: 'legit' | 'phishing') => {
+        try {
+            logger.debug('data on sumbmit', { selection })
+            const res = await backend.post<AttemptData>({ root: 'game', route: `/attempt/${attemptId}/submit`, payload: { selection } })
+            logger.debug('data on sumbmit', res)
+            setData(res)
+            // refetch()
+        } catch (error: any) {
+            logger.error('Error in useResults', error)
+
+            if (error?.status === 401 || error?.status === 404) {
+                tokenStore.clear()
+                navigate('/')
+            }
+        }
+    }
 
 
 
-    return { data, loading, refetch }
+    return { data, loading, setData, submit }
 }
