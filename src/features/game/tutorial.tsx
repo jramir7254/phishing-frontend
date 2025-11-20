@@ -49,7 +49,7 @@ export default function Tutorial() {
 
     const startGame = async () => {
         await backend.post({ root: 'game', route: '/start' })
-        navigate('live')
+        navigate('/live')
     }
 
     function next() {
