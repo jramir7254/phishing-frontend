@@ -77,6 +77,11 @@ export function useEmail() {
             logger.debug('data on sumbmit', { selection })
             const res = await backend.post<AttemptData>({ root: 'game', route: `/attempt/${attemptId}/submit`, payload: { selection } })
             logger.debug('data on sumbmit', res)
+
+            if (res.done) {
+                logger.info(`[res.done]: ${res.done}`)
+                return navigate('/results')
+            }
             setData(res)
             // refetch()
         } catch (error: any) {

@@ -1,12 +1,10 @@
 import { Button } from '@/components/ui';
-import { useEmail } from '@/hooks/use-email';
-import { logger } from '@/lib/logger';
 import { useAuth } from '@/providers/auth-provider';
 import { Separator } from '@/components/ui';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
-import React from 'react'
 import Email, { type EmailProps } from './email';
-import { useTutorial, TutorialProvider } from '@/providers/tutorial-provider';
+import Countdown from '@/components/blocks/timer';
+import { minutesToMs } from '@/lib/utils';
 import Tutorial from './tutorial';
 
 export const templateEmail: EmailProps = {
@@ -55,15 +53,7 @@ export const templateEmail: EmailProps = {
 
 export default function LobbyPage() {
     const { team, loading: teamLoading } = useAuth()
-    // const { start } = useTutorial();
 
-    // function launchTutorial() {
-    //     start([
-    //         { target: "#start-btn", content: "Click here to start the game." },
-    //         { target: "#email", content: "This is your live score." },
-    //         { target: "#finish-btn", content: "Press here to finish!" },
-    //     ]);
-    // }
 
     if (teamLoading || !team) return <p>Loading…</p>;
 
@@ -72,13 +62,20 @@ export default function LobbyPage() {
 
     return (
         <div className='flex flex-1 px-5 '>
-            <div className='w-[75%] max-w-[75%] gap-5 p-10 flex items-center justify-center relative' >
-                <Tutorial />
-                <Button id='start-btn' variant={'outline'} size={'icon'}><ArrowLeftIcon /></Button>
-                <div id='email' className=' w-fit border-3 max-h-[75vh] rounded-lg border-dashed grid place-items-center overflow-auto p-5' >
-                    <Email email={email} />
+            <div className='w-[75%] max-w-[75%] gap-5 p-10  flex flex-col items-center justify-center relative' >
+                <div id="timer" className='absolute top-20 right-20'>
+                    <div >
+                        <Countdown startTime={undefined} timeLimit={minutesToMs(15)} />
+                    </div>
                 </div>
-                <Button variant={'outline'} size={'icon'}><ArrowRightIcon /></Button>
+                <Tutorial />
+                <div className='inline-flex items-center justify-center'>
+                    <Button id='legit-bttn' variant={'outline'} size={'icon'}><ArrowLeftIcon /></Button>
+                    <div id='email' className=' w-fit border-3 max-h-[75vh] rounded-lg border-dashed grid place-items-center overflow-auto p-5' >
+                        <Email email={email} />
+                    </div>
+                    <Button id='phish-bttn' variant={'outline'} size={'icon'}><ArrowRightIcon /></Button>
+                </div>
 
 
             </div>
@@ -91,7 +88,7 @@ export default function LobbyPage() {
                         <p><strong>Team Name:</strong> {team?.teamName}</p>
                         <p><strong>Join Code:</strong> {team?.joinCode}</p>
                     </div>
-                    <p><strong>Progress:</strong> 0 / 50</p>
+                    <p><strong>Progress:</strong> 0 / 40</p>
                 </div>
             </div>
         </div>

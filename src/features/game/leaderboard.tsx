@@ -1,5 +1,4 @@
 import { useLeaderboard, type Leaderboard } from './use-leaderboard'
-import { formatDate } from '@/lib/utils'
 import { Heading } from '@/components/ui/typography'
 import { ScrollArea } from '@/components/ui/scroll-area'
 

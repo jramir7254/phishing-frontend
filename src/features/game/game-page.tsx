@@ -1,10 +1,11 @@
-import { useTeam } from '../auth/use-team'
 import Email from './email'
 import { Button, Separator } from '@/components/ui'
 import { logger } from '@/lib/logger'
 import { useEmail } from '@/hooks/use-email'
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react'
 import { useAuth } from '@/providers/auth-provider'
+import Countdown from '@/components/blocks/timer'
+import { minutesToMs } from '@/lib/utils'
 
 export default function GamePage() {
     const { team, loading: teamLoading } = useAuth()
@@ -20,7 +21,12 @@ export default function GamePage() {
     return (
         <div className='flex flex-1 px-5'>
 
-            <div className='w-[75%] max-w-[75%] gap-5 p-10 flex items-center justify-center' >
+            <div className='w-[75%] max-w-[75%] gap-5 p-10 flex items-center justify-center relative' >
+                <div id="timer" className='absolute top-20 right-20'>
+                    <div >
+                        <Countdown startTime={team?.startedAt} timeLimit={minutesToMs(15)} />
+                    </div>
+                </div>
                 <Button onClick={() => submit('legit')} variant={'outline'} size={'icon'}><ArrowLeftIcon /></Button>
                 <div className=' w-fit border-3 max-h-[75vh] rounded-lg border-dashed grid place-items-center overflow-auto p-5' >
                     <Email email={email} />
@@ -37,7 +43,7 @@ export default function GamePage() {
                         <p><strong>Team Name:</strong> {team?.teamName}</p>
                         <p><strong>Join Code:</strong> {team?.joinCode}</p>
                     </div>
-                    <p><strong>Progress:</strong> {data?.count} / 20</p>
+                    <p><strong>Progress:</strong> {data?.count} / 40</p>
                 </div>
             </div>
         </div>

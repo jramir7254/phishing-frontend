@@ -13,3 +13,10 @@ export function formatDate(date: string) {
         hour12: true, // Use 12-hour format with AM/PM
     }).format(new Date(date));
 }
+
+export function msToMinutes(ms: number) {
+    return ms / 60 / 1_000
+}
+export function minutesToMs(mins: number) {
+    return mins * 60 * 1_000
+}

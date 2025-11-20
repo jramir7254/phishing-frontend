@@ -15,10 +15,7 @@ export function useTeams() {
         (async () => {
             try {
                 const res = await backend.get<DecodedToken[]>({ root: 'admin', route: '/teams' })
-
-
                 setData(res)
-
             }
             catch (error) { logger.error('Error in useEmail', error) }
             finally { setLoading(false) }

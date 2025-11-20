@@ -1,6 +1,6 @@
 import React from 'react'
 import { useResults } from './use-results'
-import { useTeam } from '../auth/use-team'
+import { useAuth } from '@/providers/auth-provider'
 import { formatDate } from '@/lib/utils'
 import Leaderboard from './leaderboard'
 import { Button, Separator } from '@/components/ui'
@@ -13,7 +13,7 @@ export default function ResultsPage() {
 
 
     const { data, loading } = useResults()
-    const team = useTeam()
+    const { team } = useAuth()
 
     if (!team || !data || loading) return <p className='text-xl'>loading...</p>
 
@@ -36,7 +36,7 @@ export default function ResultsPage() {
                 </div>
                 <Separator />
                 <div className='flex-1 grid place-items-center'>
-                    <p className='text-5xl font-bold'>{count}/20</p>
+                    <p className='text-5xl font-bold'>{count}/40</p>
                 </div>
             </div>
         </div>
