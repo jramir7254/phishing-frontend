@@ -1,18 +1,9 @@
 import { backend } from "@/lib/api";
 import { logger } from "@/lib/logger";
-import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-export type DecodedToken = {
-    id: string,
-    teamName: string;
-    joinCode: string;
-    isAdmin: boolean;
-    joinedAt: string
-    finishedAt: string
-    correctCount: number
-};
+
 export type TeamSchema = {
     id: string,
     teamName: string;
@@ -46,16 +37,6 @@ export const tokenStore = <TokenState>{
         sessionStorage.removeItem(_KEY)
         localStorage.clear()
     },
-}
-
-export function decodeToken(token: string | null): DecodedToken | null {
-    if (!token) return null;
-    try {
-        return jwtDecode<DecodedToken>(token);
-    } catch (e) {
-        logger.error('Invalid token', e);
-        return null;
-    }
 }
 
 
