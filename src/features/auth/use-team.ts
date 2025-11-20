@@ -70,17 +70,24 @@ export function useTeam() {
 
                 const res = await backend.get<TeamSchema>({ root: 'auth', route: '/teams/self' })
 
-                if (!res) navigate('/')
+                setData(res)
 
-                if (res.isAdmin) navigate('/admin')
+
+                if (!res) return navigate('/')
+
+                if (res.isAdmin) return navigate('/admin')
 
                 if (res.finishedAt) {
                     logger.info(`[res.done]: ${res.finishedAt}`)
-                    navigate('/results')
-                    return
+                    return navigate('/results')
+                }
+                if (res.startedAt) {
+                    logger.info(`[res.done]: ${res.finishedAt}`)
+                    return navigate('/live')
                 }
 
-                setData(res)
+                return navigate('/instructions')
+
 
             }
             catch (error: any) {

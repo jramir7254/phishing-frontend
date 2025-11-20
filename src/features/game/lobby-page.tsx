@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui';
-import { useAuth } from '@/providers/auth-provider';
 import { Separator } from '@/components/ui';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import Email, { type EmailProps } from './email';
 import Countdown from '@/components/blocks/timer';
 import { minutesToMs } from '@/lib/utils';
+import { useTeam } from '../auth/use-team';
 import Tutorial from './tutorial';
 
 export const templateEmail: EmailProps = {
@@ -52,7 +52,7 @@ export const templateEmail: EmailProps = {
 
 
 export default function LobbyPage() {
-    const { team, loading: teamLoading } = useAuth()
+    const { data: team, loading: teamLoading } = useTeam()
 
 
     if (teamLoading || !team) return <p>Loading…</p>;

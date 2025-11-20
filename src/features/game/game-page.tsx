@@ -3,12 +3,12 @@ import { Button, Separator } from '@/components/ui'
 import { logger } from '@/lib/logger'
 import { useEmail } from '@/hooks/use-email'
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react'
-import { useAuth } from '@/providers/auth-provider'
 import Countdown from '@/components/blocks/timer'
 import { minutesToMs } from '@/lib/utils'
+import { useTeam } from '../auth/use-team'
 
 export default function GamePage() {
-    const { team, loading: teamLoading } = useAuth()
+    const { data: team, loading: teamLoading } = useTeam()
     const { data, loading, submit } = useEmail()
 
     if (loading || teamLoading) return <p>Loading…</p>;

@@ -9,7 +9,7 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/comp
 import { backend } from "@/lib/api";
 import { toast } from "sonner";
 import { tokenStore } from "./use-team";
-import { useAuth } from "@/providers/auth-provider";
+import { useNavigate } from "react-router";
 
 const loginSchema = z.object({
     joinCode: z.string().min(3, "Access code must be 6 characters."),
@@ -24,7 +24,7 @@ const registerSchema = z.object({
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(false);
-    const { refresh } = useAuth()
+    const navigate = useNavigate()
 
     const form = useForm({
         resolver: zodResolver(isLogin ? loginSchema : registerSchema),
@@ -45,7 +45,7 @@ export default function AuthForm() {
             }
             if (token) {
                 tokenStore.set(token)
-                await refresh()
+                navigate('/instructions')
             }
         } catch (error: any) {
             toast.error(error?.message)

@@ -1,19 +1,18 @@
 import React from 'react'
 import { useResults } from './use-results'
-import { useAuth } from '@/providers/auth-provider'
 import { formatDate } from '@/lib/utils'
 import Leaderboard from './leaderboard'
 import { Button, Separator } from '@/components/ui'
 import { Heading } from '@/components/ui/typography'
 
-
+import { useTeam } from '../auth/use-team'
 
 export default function ResultsPage() {
 
 
 
     const { data, loading } = useResults()
-    const { team } = useAuth()
+    const { data: team } = useTeam()
 
     if (!team || !data || loading) return <p className='text-xl'>loading...</p>
 

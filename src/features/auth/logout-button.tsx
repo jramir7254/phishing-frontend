@@ -11,11 +11,10 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/providers/auth-provider"
-
+import { useLogout } from "./use-team"
 
 export function LogoutButton() {
-    const { logout } = useAuth()
+    const logout = useLogout()
 
     return (
         <AlertDialog>
