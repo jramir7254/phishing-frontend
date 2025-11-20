@@ -35,6 +35,11 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     const [team, setTeam] = useState<TeamSchema | null>(null);
     const [loading, setLoading] = useState(true);
 
+    function safeNavigate(path: string) {
+        if (location.pathname !== path) navigate(path);
+    }
+
+
 
     useEffect(() => {
         logger.info('AuthProvider useEffect')
@@ -53,18 +58,16 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
                 if (cancelled) return;
 
                 if (!res) {
-                    navigate('/');
+                    safeNavigate('/');
                     return;
                 }
 
                 setTeam(res);
 
-                // --- Route selection logic ---
-                if (res.isAdmin) return navigate('/admin');
-                if (res.finishedAt) return navigate('/results');
-                if (res.startedAt) return navigate('/live');
-
-                return navigate('/instructions');
+                if (res.isAdmin) safeNavigate('/admin');
+                else if (res.finishedAt) safeNavigate('/results');
+                else if (res.startedAt) safeNavigate('/live');
+                else safeNavigate('/instructions');
 
             } catch (error: any) {
                 if (cancelled) return;
@@ -83,7 +86,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
         loadUser();
 
-        // return () => { cancelled = true };
+        return () => { cancelled = true };
     }, [navigate]);
 
     async function refresh() {
