@@ -58,6 +58,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
                 if (cancelled) return;
 
                 if (!res) {
+                    logger.warn('AuthProvider useEffect nav to /')
+
                     safeNavigate('/');
                     return;
                 }
@@ -67,7 +69,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
                 if (res.isAdmin) safeNavigate('/admin');
                 else if (res.finishedAt) safeNavigate('/results');
                 else if (res.startedAt) safeNavigate('/live');
-                else safeNavigate('/instructions');
+                else if (!res.startedAt) safeNavigate('/instructions');
 
             } catch (error: any) {
                 if (cancelled) return;
