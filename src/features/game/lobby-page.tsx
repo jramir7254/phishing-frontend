@@ -63,18 +63,24 @@ export default function LobbyPage() {
     return (
         <div className='flex flex-1 px-5 '>
             <div className='w-[75%] max-w-[75%] gap-5 p-10  flex flex-col items-center justify-center relative' >
-                <div id="timer" className='absolute top-20 right-20'>
+                <div id="timer" className='absolute top-10 right-10'>
                     <div >
                         <Countdown startTime={undefined} timeLimit={minutesToMs(15)} />
                     </div>
                 </div>
                 <Tutorial />
                 <div className='inline-flex items-center justify-center'>
-                    <Button id='legit-bttn' variant={'outline'} size={'icon'}><ArrowLeftIcon /></Button>
+                    <div>
+                        <Button id='legit-bttn' variant={'outline'} size={'icon'}><ArrowLeftIcon /></Button>
+                        <p>Legit</p>
+                    </div>
                     <div id='email' className=' w-fit border-3 max-h-[75vh] rounded-lg border-dashed grid place-items-center overflow-auto p-5' >
                         <Email email={email} />
                     </div>
-                    <Button id='phish-bttn' variant={'outline'} size={'icon'}><ArrowRightIcon /></Button>
+                    <div>
+                        <Button id='phish-bttn' variant={'outline'} size={'icon'}><ArrowRightIcon /></Button>
+                        <p>Legit</p>
+                    </div>
                 </div>
 
 

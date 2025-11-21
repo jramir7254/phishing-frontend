@@ -15,7 +15,7 @@ export default function Tutorial() {
     const navigate = useNavigate()
     const [index, setIndex] = useState(-1);
     const [steps, setSteps] = useState<Step[]>([
-        { target: '#email', className: 'z-10', content: 'You will see an email' },
+        { target: '#email', className: 'z-10', content: 'You will see an email in the center. Watch out for anything that may make it seem as a phish attempt.' },
         { target: '#legit-bttn', className: 'z-10 border-green-400! border-3 animate-pulse', content: 'Press this button if you think this is a legit email' },
         { target: '#phish-bttn', className: 'z-10 border-green-400! border-3 animate-pulse', content: 'Or press this button if you think this is a phishing email' },
         { target: '#timer', className: 'z-20! text-green-400! animate-pulse', content: 'You will have 15 minutes to complete this challenge' },
@@ -66,8 +66,11 @@ export default function Tutorial() {
     }
     return (
         <div className='absolute size-full bg-black/70'>
-            <Heading>How to play</Heading>
-            <Button hidden={index >= 0} onClick={next}>Next</Button>
+            <div className='p-20'>
+                <Heading>How to play</Heading>
+                <Button hidden={index >= 0} onClick={next}>Next</Button>
+
+            </div>
 
             <div hidden={!!steps.length} className='absolute rounded-lg flex flex-col items-center justify-center inset-0 m-auto size-fit bg-accent  p-10 font-nunit'>
                 <p>Press the start button to start the challenge</p>

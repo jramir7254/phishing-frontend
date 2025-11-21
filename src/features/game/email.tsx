@@ -22,7 +22,7 @@ export default function Email({ email }: { email: EmailProps | null }) {
 
     return (
         <article className="bg-white border border-gray-200 rounded-xl shadow-sm p-4  dark:text-accent size-fit" id={email.id}>
-            <header className="">
+            {/* <header className="">
                 <div>
                     <h3 className=""><strong>Subject: </strong>{email.subject}</h3>
                     <p className="">
@@ -33,7 +33,7 @@ export default function Email({ email }: { email: EmailProps | null }) {
                 </div>
             </header>
 
-            <Separator />
+            <Separator /> */}
 
             {/* Body content (safe, sanitized HTML) */}
             <section

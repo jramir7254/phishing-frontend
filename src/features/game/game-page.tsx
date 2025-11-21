@@ -22,16 +22,22 @@ export default function GamePage() {
         <div className='flex flex-1 px-5'>
 
             <div className='w-[75%] max-w-[75%] gap-5 p-10 flex items-center justify-center relative' >
-                <div id="timer" className='absolute top-20 right-20'>
+                <div id="timer" className='absolute top-10 right-10'>
                     <div >
                         <Countdown startTime={team?.startedAt} timeLimit={minutesToMs(15)} />
                     </div>
                 </div>
-                <Button onClick={() => submit('legit')} variant={'outline'} size={'icon'}><ArrowLeftIcon /></Button>
+                <div>
+                    <Button onClick={() => submit('legit')} variant={'outline'} size={'icon'}><ArrowLeftIcon /></Button>
+                    <p>Legit</p>
+                </div>
                 <div className=' w-fit border-3 max-h-[75vh] rounded-lg border-dashed grid place-items-center overflow-auto p-5' >
                     <Email email={email} />
                 </div>
-                <Button onClick={() => submit('phishing')} variant={'outline'} size={'icon'}><ArrowRightIcon /></Button>
+                <div>
+                    <Button onClick={() => submit('phishing')} variant={'outline'} size={'icon'}><ArrowRightIcon /></Button>
+                    <p>Phish</p>
+                </div>
 
             </div>
 
