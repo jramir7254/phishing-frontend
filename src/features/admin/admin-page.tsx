@@ -46,7 +46,7 @@ export default function AdminPage() {
             </div>
             <Separator orientation='vertical' />
             <div className='flex-1'>
-                <Button onClick={resetDemo} variant='destructive'>Reset</Button>
+                <Button disabled onClick={resetDemo} variant='destructive'>Reset</Button>
             </div>
         </div>
     )
